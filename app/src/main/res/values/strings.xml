@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ClickerApp</string>
+    <string name="preference_file_key" translatable="false">CLICKER_APP_PREFERENCE</string>
+    <string name="key_saved_state" translatable="false">KEY_SAVED_STATE</string>
 </resources>

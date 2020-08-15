@@ -1,10 +1,15 @@
 package com.github.cr9ck.clickerapp.di.modules;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.github.cr9ck.clickerapp.R;
 import com.github.cr9ck.clickerapp.model.network.ApiService;
 import com.github.cr9ck.clickerapp.model.network.ServerApi;
 import com.github.cr9ck.clickerapp.model.repository.ApiRepository;
 import com.github.cr9ck.clickerapp.model.repository.ApiRepositoryImpl;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -21,12 +26,23 @@ public class ModelModule {
     }
 
     @Provides
-    public ApiRepository provideApiRepository(ServerApi serverApi) {
-        return new ApiRepositoryImpl(serverApi);
+    public ApiRepository provideApiRepository(ServerApi serverApi, SharedPreferences preferences, @Named(value = "stateKey") String stateKey) {
+        return new ApiRepositoryImpl(serverApi, preferences, stateKey);
     }
 
     @Provides
     public CompositeDisposable provideCompositeDisposable() {
         return new CompositeDisposable();
+    }
+
+    @Provides
+    public SharedPreferences provideSharedPreferences(Context context) {
+        return context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    @Named(value = "stateKey")
+    public String provideSate(Context context) {
+        return context.getString(R.string.key_saved_state);
     }
 }
