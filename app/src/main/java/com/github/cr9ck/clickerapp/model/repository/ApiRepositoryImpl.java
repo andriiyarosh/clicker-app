@@ -25,15 +25,20 @@ public class ApiRepositoryImpl implements ApiRepository {
 
     @Override
     public Single<Integer> getSavedState() {
-        Observable<Integer> locallySavedState = Observable.just(preferences.getInt(stateKey, ViewState.ERROR.ordinal()));
+        Observable<Integer> locallySavedState = Observable.just(preferences.getInt(stateKey, ViewState.DEFAULT.ordinal()));
         Observable<Integer> apiState = serverApi.getResult().map(aBoolean -> aBoolean ? ViewState.WEB.ordinal() : ViewState.GAME.ordinal());
         return Observable.concat(locallySavedState, apiState)
-                .filter(result -> result != ViewState.ERROR.ordinal())
-                .first(ViewState.ERROR.ordinal());
+                .filter(result -> result != ViewState.DEFAULT.ordinal())
+                .first(ViewState.DEFAULT.ordinal());
     }
 
     @Override
     public void saveState(Integer stateOrdinal) {
         preferences.edit().putInt(stateKey, stateOrdinal).apply();
+    }
+
+    @Override
+    public void resetState() {
+        preferences.edit().remove(stateKey).apply();
     }
 }

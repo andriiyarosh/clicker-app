@@ -1,4 +1,4 @@
-package com.github.cr9ck.clickerapp.presentation.view;
+package com.github.cr9ck.clickerapp.presentation.view.web;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

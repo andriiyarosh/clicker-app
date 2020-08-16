@@ -2,12 +2,16 @@ package com.github.cr9ck.clickerapp.di.modules;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 
 import com.github.cr9ck.clickerapp.R;
 import com.github.cr9ck.clickerapp.model.network.ApiService;
 import com.github.cr9ck.clickerapp.model.network.ServerApi;
 import com.github.cr9ck.clickerapp.model.repository.ApiRepository;
 import com.github.cr9ck.clickerapp.model.repository.ApiRepositoryImpl;
+import com.github.cr9ck.clickerapp.presentation.view.game.levels.Level;
+
+import java.util.List;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

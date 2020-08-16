@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.github.cr9ck.clickerapp.App;
 import com.github.cr9ck.clickerapp.di.modules.ComponentsModule;
+import com.github.cr9ck.clickerapp.di.modules.GameModule;
 import com.github.cr9ck.clickerapp.di.modules.ModelModule;
 import com.github.cr9ck.clickerapp.di.modules.ViewModelModule;
 
@@ -15,7 +16,7 @@ import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 @Singleton
-@Component(modules = {ViewModelModule.class, ModelModule.class, ComponentsModule.class, AndroidSupportInjectionModule.class})
+@Component(modules = {ViewModelModule.class, ModelModule.class, ComponentsModule.class, GameModule.class, AndroidSupportInjectionModule.class})
 public interface AppComponent extends AndroidInjector<App> {
 
     @Component.Factory

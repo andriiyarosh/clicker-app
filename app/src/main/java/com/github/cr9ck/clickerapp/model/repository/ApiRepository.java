@@ -4,5 +4,8 @@ import io.reactivex.Single;
 
 public interface ApiRepository {
     Single<Integer> getSavedState();
+
     void saveState(Integer stateOrdinal);
+
+    void resetState();
 }

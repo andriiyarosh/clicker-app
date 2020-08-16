@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.github.cr9ck.clickerapp.di.viewmodel.ViewModelFactory;
 import com.github.cr9ck.clickerapp.di.viewmodel.ViewModelKey;
+import com.github.cr9ck.clickerapp.presentation.viewmodel.GameViewModel;
 import com.github.cr9ck.clickerapp.presentation.viewmodel.LauncherViewModel;
 
 import dagger.Binds;
@@ -18,6 +19,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LauncherViewModel.class)
     abstract ViewModel bindLauncherViewModel(LauncherViewModel launcherViewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(GameViewModel.class)
+    abstract ViewModel bindGameViewModel(GameViewModel gameViewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);

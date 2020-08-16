@@ -2,4 +2,11 @@
     <string name="app_name">ClickerApp</string>
     <string name="preference_file_key" translatable="false">CLICKER_APP_PREFERENCE</string>
     <string name="key_saved_state" translatable="false">KEY_SAVED_STATE</string>
+    <string name="enable_timer">Timer Mode</string>
+    <string name="timer_goal">/%d</string>
+    <string name="you_win">You win, congratulations!!!</string>
+    <string name="you_lose">You lose!</string>
+    <string name="explanation">Click on emoji as fast as possible!</string>
+    <string name="ok">OK</string>
+    <string name="reset">Reset app</string>
 </resources>

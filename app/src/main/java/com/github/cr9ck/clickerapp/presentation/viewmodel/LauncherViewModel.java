@@ -9,6 +9,8 @@ import com.github.cr9ck.clickerapp.presentation.view.ViewState;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -35,7 +37,34 @@ public class LauncherViewModel extends ViewModel {
         compositeDisposable.dispose();
     }
 
+    public void resetState() {
+        Completable.fromRunnable(() -> apiRepository.resetState())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        compositeDisposable.add(d);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        viewState.setValue(ViewState.DEFAULT);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                    }
+                });
+    }
+
     private LiveData<ViewState> getViewState() {
+        updateState();
+        return viewState;
+    }
+
+    public void updateState() {
         apiRepository.getSavedState()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,10 +83,9 @@ public class LauncherViewModel extends ViewModel {
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        viewState.setValue(ViewState.ERROR);
-                        apiRepository.saveState(ViewState.ERROR.ordinal());
+                        viewState.setValue(ViewState.DEFAULT);
+                        apiRepository.saveState(ViewState.DEFAULT.ordinal());
                     }
                 });
-        return viewState;
     }
 }

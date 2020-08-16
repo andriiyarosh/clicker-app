@@ -1,5 +1,6 @@
-package com.github.cr9ck.clickerapp.presentation.view;
+package com.github.cr9ck.clickerapp.presentation.view.launcher;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.github.cr9ck.clickerapp.R;
+import com.github.cr9ck.clickerapp.presentation.view.MainActivity;
+import com.github.cr9ck.clickerapp.presentation.view.game.GameActivity;
 import com.github.cr9ck.clickerapp.presentation.viewmodel.LauncherViewModel;
 
 import javax.inject.Inject;
@@ -31,7 +34,7 @@ public class LauncherFragment extends DaggerAppCompatDialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(getViewModelStore(), factory).get(LauncherViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity(), factory).get(LauncherViewModel.class);
         initObservers();
     }
 
@@ -47,9 +50,14 @@ public class LauncherFragment extends DaggerAppCompatDialogFragment {
                     NavHostFragment.findNavController(this).navigate(R.id.action_to_web_page);
                     break;
                 case GAME:
-                    NavHostFragment.findNavController(this).navigate(R.id.action_to_game);
+                    Intent mainIntent = new Intent(requireActivity(), GameActivity.class);
+                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(mainIntent);
+                    requireActivity().finish();
                     break;
-                case ERROR:
+                case DEFAULT:
+                    viewModel.updateState();
+
                     break;
             }
         });
